@@ -74,6 +74,14 @@ config MX6ULL
 
 endchoice
 
+config TARGET_MAPTATTOO
+	bool "maptattoo"
+	select SUPPORT_SPL
+	select DM
+	select DM_THERMAL
+	select MX6SLL
+	imply CMD_DM
+
 config MX6UL_LITESOM
 	bool
 	select DM
@@ -973,5 +981,6 @@ source "board/udoo/neo/Kconfig"
 source "board/wandboard/Kconfig"
 source "board/warp/Kconfig"
 source "board/BuR/brppt2/Kconfig"
+source "board/maptattoo/maptattoo/Kconfig"
 
 endif

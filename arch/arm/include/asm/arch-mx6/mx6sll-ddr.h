@@ -1,0 +1,53 @@
+/* SPDX-License-Identifier: GPL-2.0+ */
+/*
+ * Copyright (C) 2015 Freescale Semiconductor, Inc.
+ */
+
+#ifndef __ASM_ARCH_MX6SLL_DDR_H__
+#define __ASM_ARCH_MX6SLL_DDR_H__
+
+#ifndef CONFIG_MX6SLL
+#error "wrong CPU"
+#endif
+
+#define MX6_IOM_GRP_DDR_TYPE	0x020e0550
+
+#define MX6_IOM_DRAM_DQM0	0x020e0294
+#define MX6_IOM_DRAM_DQM1	0x020e0298
+#define MX6_IOM_DRAM_DQM2	0x020e029c
+#define MX6_IOM_DRAM_DQM3	0x020e02a0
+
+/* Included in GRP_CTLDS
+#define MX6_IOM_DRAM_SDCKE0	0x020e02a4
+#define MX6_IOM_DRAM_SDCKE1	0x020e02a8
+
+#define MX6_IOM_DRAM_CS0_B	0x020e028c
+#define MX6_IOM_DRAM_CS1_B	0x020e0290
+
+*/
+
+#define MX6_IOM_GRP_CTLDS	0x020e0548
+
+#define MX6_IOM_DRAM_SDCLK0_P	0x020e02ac
+
+#define MX6_IOM_DRAM_SDQS0_P	0x020e02b0
+#define MX6_IOM_DRAM_SDQS1_P	0x020e02b4
+#define MX6_IOM_DRAM_SDQS2_P	0x020e02b8
+#define MX6_IOM_DRAM_SDQS3_P	0x020e02bc
+
+#define MX6_IOM_DRAM_ZQPAD	0x020e02c0
+
+#define MX6_IOM_GRP_B0DS	0x020e0544
+#define MX6_IOM_GRP_B1DS	0x020e054c
+#define MX6_IOM_GRP_B2DS	0x020e0554
+#define MX6_IOM_GRP_B3DS	0x020e0558
+
+#define MX6_IOM_GRP_ADDDS	0x020E052C
+
+#define MX6_IOM_GRP_DDRMODE_CTL 0x020e0530
+
+#define MX6_IOM_GRP_DDRMODE	0x020e0540
+
+#define MX6_IOM_GRP_DDRPKE	0x020e0534
+
+#endif /*__ASM_ARCH_MX6SL_DDR_H__ */

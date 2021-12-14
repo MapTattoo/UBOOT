@@ -1,0 +1,14 @@
+if TARGET_MAPTATTOO
+
+config SYS_BOARD
+	default "maptattoo"
+
+config SYS_VENDOR
+	default "maptattoo"
+
+config SYS_CONFIG_NAME
+	default "maptattoo"
+
+config SYS_TEXT_BASE
+	default 0x87800000
+endif

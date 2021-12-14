@@ -21,7 +21,11 @@
 #ifdef CONFIG_MX6SL
 #include "mx6sl-ddr.h"
 #else
+#ifdef CONFIG_MX6SLL
+#include "mx6sll-ddr.h"
+#else
 #error "Please select cpu"
+#endif	/* CONFIG_MX6SLL */
 #endif	/* CONFIG_MX6SL */
 #endif	/* CONFIG_MX6UL */
 #endif	/* CONFIG_MX6SX */

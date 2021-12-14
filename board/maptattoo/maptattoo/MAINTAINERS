@@ -1,0 +1,7 @@
+MAPTATTOO BOARD
+M:	Vincent LINTILHAC <vlintilhac@maptattoo.com>
+S:	Maintained
+F:	board/maptattoo/maptattoo/
+F:	include/configs/maptattoo.h
+F:	configs/maptattoo_defconfig
+F:	configs/maptattoo_spl_defconfig
