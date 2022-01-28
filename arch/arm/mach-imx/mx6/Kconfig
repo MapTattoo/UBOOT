@@ -299,6 +299,13 @@ config TARGET_MX6SLLEVK
         select DM
         select DM_THERMAL
 
+config TARGET_MAPTATTOO
+        bool "maptattoo"
+	select BOARD_LATE_INIT
+        select MX6SLL
+        select DM
+        select DM_THERMAL
+
 config TARGET_MX6SXSABRESD
 	bool "mx6sxsabresd"
 	select BOARD_LATE_INIT
@@ -535,5 +542,6 @@ source "board/udoo/Kconfig"
 source "board/udoo/neo/Kconfig"
 source "board/wandboard/Kconfig"
 source "board/warp/Kconfig"
+source "board/maptattoo/gamma/Kconfig"
 
 endif

@@ -1,0 +1,12 @@
+if TARGET_MAPTATTOO
+
+config SYS_BOARD
+	default "gamma"
+
+config SYS_VENDOR
+	default "maptattoo"
+
+config SYS_CONFIG_NAME
+	default "maptattoo"
+
+endif
