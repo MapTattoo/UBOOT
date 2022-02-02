@@ -16,6 +16,7 @@
 #endif
 #endif
 
+
 /* Size of malloc() pool */
 #define CONFIG_SYS_MALLOC_LEN		(16 * SZ_1M)
 
@@ -42,6 +43,7 @@
 	"fdt_addr=0x83000000\0" \
 	"boot_fdt=try\0" \
 	"ip_dyn=yes\0" \
+	"splashimage=0x8c000000\0" \
 	"mmcdev="__stringify(CONFIG_SYS_MMC_ENV_DEV)"\0" \
 	"mmcpart=1\0" \
 	"mmcroot=" CONFIG_MMCROOT " rootwait rw\0" \
@@ -146,5 +148,29 @@
 #ifdef CONFIG_CMD_USB
 #define CONFIG_MXC_USB_PORTSC		(PORT_PTS_UTMI | PORT_PTS_PTW)
 #endif
+
+
+#ifdef CONFIG_DM_VIDEO
+#define CONFIG_VIDEO_MXS
+#define CONFIG_VIDEO_LINK
+#define CONFIG_VIDEO_LOGO
+#define CONFIG_BMP_16BPP
+#define CONFIG_VIDEO_BMP_RLE8
+#define CONFIG_VIDEO_BMP_LOGO
+#endif
+
+/*
+ * EPDC SPLASH SCREEN Configs
+ */
+#ifdef CONFIG_MXC_EPDC
+	/*
+	 * Framebuffer and LCD
+	 */
+	#undef LCD_TEST_PATTERN
+	#define LCD_BPP					LCD_MONOCHROME
+
+	#define CONFIG_WAVEFORM_BUF_SIZE		0x400000
+#endif /* CONFIG_MXC_EPDC */
+
 
 #endif				/* __CONFIG_H */

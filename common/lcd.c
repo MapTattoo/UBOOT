@@ -34,10 +34,6 @@
 #define CONFIG_LCD_ALIGNMENT PAGE_SIZE
 #endif
 
-#if (LCD_BPP != LCD_COLOR8) && (LCD_BPP != LCD_COLOR16) && \
-	(LCD_BPP != LCD_COLOR32)
-#error Unsupported LCD BPP.
-#endif
 
 DECLARE_GLOBAL_DATA_PTR;
 

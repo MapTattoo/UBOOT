@@ -385,6 +385,7 @@
 			  ((is_mx6ull()) ?	\
 			  MX6ULL_LCDIF1_BASE_ADDR : MX6SX_LCDIF1_BASE_ADDR)))
 
+#define MXS_LCDIF_BASE LCDIF1_BASE_ADDR
 
 extern void imx_get_mac_from_fuse(int dev_id, unsigned char *mac);
 
