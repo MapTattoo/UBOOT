@@ -225,8 +225,8 @@ static void setup_epdc_power(void)
 	imx_iomux_v3_setup_pad(MX6_PAD_EPDC_PWR_WAKE__GPIO2_IO14 |
 				MUX_PAD_CTRL(EPDC_PAD_CTRL));
 	/* Set as output */
-	//gpio_request(IMX_GPIO_NR(2, 14), "epdc_pwr_wake");
-	//gpio_direction_output(IMX_GPIO_NR(2, 14), 1);
+	gpio_request(IMX_GPIO_NR(2, 14), "epdc_pwr_wake");
+	gpio_direction_output(IMX_GPIO_NR(2, 14), 1);
 
 	/* EPDC_PWRCTRL0 - GPIO2[07] for EPD PWR CTL0 */
 	imx_iomux_v3_setup_pad(MX6_PAD_EPDC_PWR_CTRL0__GPIO2_IO07 |
@@ -297,12 +297,14 @@ void epdc_power_on(void)
 	epdc_enable_pins();
 
 	/* Set PMIC Wakeup to high - enable Display power */
-	//gpio_set_value(IMX_GPIO_NR(2, 14), 1);
-	// Add the I2C Active set @0x68: 0x01<-0xBF		
+	gpio_set_value(IMX_GPIO_NR(2, 14), 1);
+	//Add the I2C Active set @0x68: 0x01<-0xBF		
+
 
 	struct udevice *dev;
 	int ret;
 	uchar data[1];
+	uchar data2[1];
 
 	ret=i2c_get_chip_for_busnum(0,0x68,1,&dev);
 	if(ret) {
@@ -311,12 +313,46 @@ void epdc_power_on(void)
 	}
 
 
+	data[0]=0x8F;
+	ret=dm_i2c_write(dev,0x01,(uint8_t *)&data,sizeof(data));
+	if(ret) {
+		printf("Failed to turn on TPS65185.\n");
+	return 0;
+	}
+/*
+	while (1) {
+		ret=dm_i2c_read(dev,0x0f,(uint8_t *)&data,sizeof(data));
+		if(data[0]==0xfa) {
+			printf("PWGOOD OK.\n");
+			break;
+		}
+		//printf("PWGOOD NOK. 0x%x\n", data[0]);
+		udelay(100);
+		ret=dm_i2c_read(dev,0x08,(uint8_t *)&data2,sizeof(data2));
+		//printf("Interrupt 0x%x\n", data2[0]);
+		udelay(1000);
+	}
+*/
+	printf("VCOM Active\n");
+
 	data[0]=0xBF;
 	ret=dm_i2c_write(dev,0x01,(uint8_t *)&data,sizeof(data));
 	if(ret) {
 		printf("Failed to turn on TPS65185.\n");
 	return 0;
 	}
+
+	gpio_set_value(IMX_GPIO_NR(2, 3), 1);
+
+	udelay(500);
+
+	ret=dm_i2c_read(dev,0x03,(uint8_t *)&data,sizeof(data));
+	if(ret) {
+		printf("Failed to get VCOM value.\n");
+	return 0;
+	}
+
+	printf("VCOM value=0x%x\n, data[0]");
 
 
 	/* Wait for PWRGOOD == 1 
@@ -342,7 +378,7 @@ void epdc_power_off(void)
 	// Add the I2C Inactive set @0x68: 0x01<-0x40
 
 	/* Disable VCOM */
-	gpio_set_value(IMX_GPIO_NR(2, 3), 0);
+	//gpio_set_value(IMX_GPIO_NR(2, 3), 0);
 
 	epdc_disable_pins();
 
@@ -364,6 +400,7 @@ int board_init(void)
 {
 	/* Address of boot parameters */
 	gd->bd->bi_boot_params = PHYS_SDRAM + 0x100;
+	enable_epdc_clock();
 	setup_epdc();
 
 	return 0;

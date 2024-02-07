@@ -312,19 +312,19 @@ static void draw_mode0(void)
 	epdc_submit_update(0, panel_info.epdc_data.wv_modes.mode_init,
 				UPDATE_MODE_FULL, FALSE, 0);
 
-	debug("Mode0 update - Waiting for LUT to complete...\n");
+	printf("Mode0 update - Waiting for LUT to complete...\n");
 
 	/* Will timeout after ~4-5 seconds */
 
 	for (i = 0; i < 40; i++) {
 		if (!epdc_is_lut_active(0)) {
-			debug("Mode0 init complete\n");
+			printf("Mode0 init complete\n");
 			return;
 		}
 		msleep(100);
 	}
 
-	debug("Mode0 init failed!\n");
+	printf("Mode0 init failed!\n");
 
 }
 
@@ -341,12 +341,12 @@ static void draw_splash_screen(void)
 
 	for (i = 0; i < 40; i++) {
 		if (!epdc_is_lut_active(lut_num)) {
-			debug("Splash screen update complete\n");
+			printf("Splash screen update complete\n");
 			return;
 		}
 		msleep(100);
 	}
-	debug("Splash screen update failed!\n");
+	printf("Splash screen update failed!\n");
 }
 
 void lcd_enable(void)
@@ -365,11 +365,12 @@ void lcd_enable(void)
 	epdc_power_on();
 
 	flush_cache((ulong)lcd_base, panel_info.vl_col * panel_info.vl_row);
-
+	printf("cache flushed\n");
 	/* Draw data to display */
 	draw_mode0();
-
+	printf("draw_mode0() done\n");
 	draw_splash_screen();
+	printf("draw_splash_screen done\n");
 }
 
 void lcd_disable(void)
